@@ -13,6 +13,8 @@ To convert the Markdown to either HTML or PDF, you need to have
 installing Pandoc, see <http://johnmacfarlane.net/pandoc/installing.html>.
 
 If you want to create the PDF version, you also need `pdflatex` installed.
+If you want to create the MobiPocket version, you also need
+["KindleGen"](http://www.amazon.com/kindleformat/kindlegen) installed.
 
 ## Errors
 If you find any error (there are probably plenty :)), please open a new

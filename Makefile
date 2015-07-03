@@ -22,10 +22,19 @@ book.pdf: $(CHAPTERS) $(TEX_HEADER) $(BIB) $(CITATION)
 		   --no-highlight --bibliography $(BIB) --csl $(CITATION) \
 		   $(CHAPTERS) -o $@
 
+book.epub: $(CHAPTERS) $(CSS) $(TEX_HEADER) $(BIB) $(CITATION)
+	pandoc -s -S --toc --toc-depth=2 -H $(TEX_HEADER) --chapters \
+		   --epub-cover-image=cover.jpg --epub-stylesheet=$(CSS) \
+		   --bibliography $(BIB) --csl $(CITATION) \
+		   $(CHAPTERS) -o $@
+
+book.mobi: book.epub
+	kindlegen book.epub
+
 ff: book.html
 	firefox book.html
 
-release: book.html book.pdf
+release: book.html book.pdf book.epub book.mobi
 	mkdir -p ../littleosbook.github.com/images
 	cp images/*.png ../littleosbook.github.com/images/
 	mkdir -p ../littleosbook.github.com/files
@@ -33,6 +42,8 @@ release: book.html book.pdf
 	cp book.pdf ../littleosbook.github.com/
 	cp book.html ../littleosbook.github.com/index.html
 	cp book.css ../littleosbook.github.com/
+	cp book.epub ../littleosbook.github.com/
+	cp book.mobi ../littleosbook.github.com/
 
 clean:
-	rm -f book.pdf book.html
+	rm -f book.pdf book.html book.epub book.mobi
